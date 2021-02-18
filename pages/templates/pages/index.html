@@ -1,8 +1,15 @@
-{% extends 'base.html' %}
+{% extends 'pages/base.html' %}
 
 {% block title %}My amazing blog{% endblock %}
 
 {% block content %}
+    {% if user.is_authenticated %}
+        {{ user }}
+        <a href="{% url 'logout' %}"><button type="submit">Logout</button></a>
+    {% else %}
+        <a href="{% url 'register' %}"><button type="submit">Register</button></a>
+        <a href="{% url 'login' %}"><button type="submit">Login</button></a>
+    {% endif %}
     {% for entry in blog_entries %}
         <h2>{{ entry.title }}</h2>
         <p>{{ entry.body }}</p>
